@@ -1,47 +1,79 @@
 using System.Collections;
-using System.Threading;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class Player_Mouve_Controller : MonoBehaviour
 {
+    [Header("Jump Parameters")]
     [SerializeField] private float _jumpDuration = 1f;
     [SerializeField] private float _heightJump = 2f;
     [SerializeField] private AnimationCurve _jumpCurve;
     [SerializeField] private AnimationCurve _fallCurve;
 
+    [Header("Slide Parameters")]
+    [SerializeField] private float _slideDuration = 2f;
+    [SerializeField] private Transform[] _slideTarget;
+
+    [Header("Debug")]
+    private int _currentLaneIndex = 2;
+    private bool _isSliding;
+    private bool _isJumping;
+
     public void Update()
     {
-        if (Keyboard.current.upArrowKey.wasPressedThisFrame)
+        if (Keyboard.current.upArrowKey.wasPressedThisFrame) // jump
         {
-            StartCoroutine(routine: SautCoroutine());
+            if (_isJumping)
+            {
+                return;
+            }
+
+            StartCoroutine(routine: JumpCoroutine());
         }
 
-        if (Keyboard.current.downArrowKey.wasPressedThisFrame)
+        if (Keyboard.current.leftArrowKey.wasPressedThisFrame) // slide left
         {
+            if (_isSliding) 
+            {
+                return;
+            }
 
+            if (_currentLaneIndex == 0)
+            {
+                return;
+            }
+
+            _currentLaneIndex--;
+            StartCoroutine(routine: SlideCoroutine(_slideTarget[_currentLaneIndex]));
         }
 
-        if (Keyboard.current.leftArrowKey.wasPressedThisFrame)
+        if (Keyboard.current.rightArrowKey.wasPressedThisFrame) // slide right
         {
+            if (_isSliding)
+            {
+                return;
+            }
 
-        }
+            if (_currentLaneIndex == _slideTarget.Length - 1)
+            {
+                return;
+            }
 
-        if (Keyboard.current.rightArrowKey.wasPressedThisFrame)
-        {
-
+            _currentLaneIndex++;
+            StartCoroutine(routine: SlideCoroutine(_slideTarget[_currentLaneIndex]));
         }
     }
 
-    private IEnumerator SautCoroutine()
+    private IEnumerator JumpCoroutine()
     {
-        var jumpTimer = 0f;
+        _isJumping = true;
+        var jumpTime = 0f;
         var halfJumpDuration = _jumpDuration / 2f;
 
-        while (jumpTimer < halfJumpDuration)
+        while (jumpTime < halfJumpDuration)
         {
-            jumpTimer += Time.deltaTime;
-            var normalizedTime = jumpTimer / halfJumpDuration;
+            jumpTime += Time.deltaTime;
+            var normalizedTime = jumpTime / halfJumpDuration;
             var heightTarget = _jumpCurve.Evaluate(normalizedTime) * _heightJump; // fait correspondre la hauteur du saut en fonction de ça durée
             var targetPosition = new Vector3(transform.position.x, heightTarget, transform.position.z);
 
@@ -50,12 +82,12 @@ public class Player_Mouve_Controller : MonoBehaviour
             yield return null; // attend la prochaine frame
         }
 
-        jumpTimer = 0f;
+        jumpTime = 0f;
 
-        while (jumpTimer < halfJumpDuration)
+        while (jumpTime < halfJumpDuration)
         {
-            jumpTimer += Time.deltaTime;
-            var normalizedTime = jumpTimer / halfJumpDuration;
+            jumpTime += Time.deltaTime;
+            var normalizedTime = jumpTime / halfJumpDuration;
             var heightTarget = _fallCurve.Evaluate(normalizedTime) * _heightJump; // idem pour la chute
             var targetPosition = new Vector3(transform.position.x, heightTarget, transform.position.z);
 
@@ -63,5 +95,26 @@ public class Player_Mouve_Controller : MonoBehaviour
 
             yield return null; // attend la prochaine frame
         }
+
+        _isJumping = false;
+    }
+
+    private IEnumerator SlideCoroutine(Transform target)
+    {
+        _isSliding = true;
+        var slideTime = 1f;
+
+        while (slideTime < _slideDuration)
+        {
+            slideTime += Time.deltaTime;
+            var normalizedTime = slideTime / _slideDuration;
+            var targetPosition = new Vector3(target.position.x, transform.position.y, target.position.z);
+
+            transform.position = Vector3.Lerp(transform.position, targetPosition, normalizedTime);
+
+            yield return null;
+        }
+
+        _isSliding = false;
     }
 }
