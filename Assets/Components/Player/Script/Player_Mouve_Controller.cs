@@ -19,9 +19,17 @@ public class Player_Mouve_Controller : MonoBehaviour
     private bool _isSliding;
     private bool _isJumping;
 
+    private Coroutine _slideCoroutine;
+
     public void Update()
     {
-        if (Keyboard.current.upArrowKey.wasPressedThisFrame) // jump
+        HandleJump();
+        HandleSlide();
+    }
+
+    private void HandleJump() // jump
+    {
+        if (Keyboard.current.upArrowKey.wasPressedThisFrame)
         {
             if (_isJumping)
             {
@@ -30,12 +38,16 @@ public class Player_Mouve_Controller : MonoBehaviour
 
             StartCoroutine(routine: JumpCoroutine());
         }
+    }
 
-        if (Keyboard.current.leftArrowKey.wasPressedThisFrame) // slide left
+    private void HandleSlide() // slide left/right
+    {
+        if (Keyboard.current.leftArrowKey.wasPressedThisFrame)
         {
-            if (_isSliding) 
+            if (_isSliding)
             {
-                return;
+                StopCoroutine(_slideCoroutine);
+                _isSliding = false;
             }
 
             if (_currentLaneIndex == 0)
@@ -44,14 +56,15 @@ public class Player_Mouve_Controller : MonoBehaviour
             }
 
             _currentLaneIndex--;
-            StartCoroutine(routine: SlideCoroutine(_slideTarget[_currentLaneIndex]));
+            _slideCoroutine = StartCoroutine(routine: SlideCoroutine(_slideTarget[_currentLaneIndex]));
         }
 
-        if (Keyboard.current.rightArrowKey.wasPressedThisFrame) // slide right
+        if (Keyboard.current.rightArrowKey.wasPressedThisFrame)
         {
             if (_isSliding)
             {
-                return;
+                StopCoroutine(_slideCoroutine);
+                _isSliding = false;
             }
 
             if (_currentLaneIndex == _slideTarget.Length - 1)
@@ -60,7 +73,7 @@ public class Player_Mouve_Controller : MonoBehaviour
             }
 
             _currentLaneIndex++;
-            StartCoroutine(routine: SlideCoroutine(_slideTarget[_currentLaneIndex]));
+            _slideCoroutine = StartCoroutine(routine: SlideCoroutine(_slideTarget[_currentLaneIndex]));
         }
     }
 
