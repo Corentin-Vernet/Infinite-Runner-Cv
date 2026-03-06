@@ -5,13 +5,13 @@ using UnityEngine.InputSystem;
 public class Player_Mouve_Controller : MonoBehaviour
 {
     [Header("Jump Parameters")]
-    [SerializeField] private float _jumpDuration = 1f;
-    [SerializeField] private float _heightJump = 2f;
+    [SerializeField, Tooltip("seconde")] private float _jumpDuration = 1f;
+    [SerializeField, Tooltip("metre")] private float _heightJump = 2f;
     [SerializeField] private AnimationCurve _jumpCurve;
     [SerializeField] private AnimationCurve _fallCurve;
 
     [Header("Slide Parameters")]
-    [SerializeField] private float _slideDuration = 2f;
+    [SerializeField, Tooltip("seconde")] private float _slideDuration = 2f;
     [SerializeField] private Transform[] _slideTarget;
 
     [Header("Debug")]
@@ -42,7 +42,7 @@ public class Player_Mouve_Controller : MonoBehaviour
 
     private void HandleSlide() // slide left/right
     {
-        if (Keyboard.current.leftArrowKey.wasPressedThisFrame)
+        if (Keyboard.current.leftArrowKey.wasPressedThisFrame) // left
         {
             if (_isSliding)
             {
@@ -59,7 +59,7 @@ public class Player_Mouve_Controller : MonoBehaviour
             _slideCoroutine = StartCoroutine(routine: SlideCoroutine(_slideTarget[_currentLaneIndex]));
         }
 
-        if (Keyboard.current.rightArrowKey.wasPressedThisFrame)
+        if (Keyboard.current.rightArrowKey.wasPressedThisFrame) // right
         {
             if (_isSliding)
             {
