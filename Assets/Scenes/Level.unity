@@ -410,7 +410,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &2061686013503435507
+--- !u!1001 &8479309589584946000
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -418,29 +418,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1565041832111477319, guid: 536f713b2b63c1f4ead78f5fdd7d747a, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -2.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2366574448183145532, guid: 536f713b2b63c1f4ead78f5fdd7d747a, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.41276
-      objectReference: {fileID: 0}
-    - target: {fileID: 2366574448183145532, guid: 536f713b2b63c1f4ead78f5fdd7d747a, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.34
-      objectReference: {fileID: 0}
     - target: {fileID: 4532330360846141186, guid: 536f713b2b63c1f4ead78f5fdd7d747a, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 4532330360846141186, guid: 536f713b2b63c1f4ead78f5fdd7d747a, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6500249697293575746, guid: 536f713b2b63c1f4ead78f5fdd7d747a, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7086011514505093079, guid: 536f713b2b63c1f4ead78f5fdd7d747a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -482,14 +462,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7360541461520391301, guid: 536f713b2b63c1f4ead78f5fdd7d747a, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8203856316165762048, guid: 536f713b2b63c1f4ead78f5fdd7d747a, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 2.5
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -502,6 +474,6 @@ SceneRoots:
   - {fileID: 410087041}
   - {fileID: 832575519}
   - {fileID: 624909004}
-  - {fileID: 2061686013503435507}
+  - {fileID: 8479309589584946000}
   - {fileID: 2040855472}
   - {fileID: 1752694141}
