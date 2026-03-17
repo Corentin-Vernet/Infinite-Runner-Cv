@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -18,11 +19,35 @@ public class Player_Mouve_Controller : MonoBehaviour
     private int _currentLaneIndex = 2;
     private bool _isSliding;
     private bool _isJumping;
+    private bool _isDead;
 
     private Coroutine _slideCoroutine;
 
+    private void Start()
+    {
+        EventSystem.OnPlayerLifeUpdated += PlayerLife;
+    }
+
+    private void OnDestroy()
+    {
+        EventSystem.OnPlayerLifeUpdated -= PlayerLife;
+    }
+
+    private void PlayerLife(int playerLifeCount)
+    {
+        if (playerLifeCount == 0)
+        {
+            _isDead = true;           
+        }
+    }
+
     public void Update()
     {
+        if (_isDead)
+        { 
+            return; 
+        }
+
         HandleJump();
         HandleSlide();
     }

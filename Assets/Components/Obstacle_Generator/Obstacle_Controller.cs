@@ -15,7 +15,12 @@ public class Obstacle_Controller : MonoBehaviour
 
     private void Start()
     {
+        EventSystem.OnPlayerLifeUpdated += PlayerLifeUdated;
         AddBaseSegment(transform.position); // ajout d'un primier segment au start
+    }
+    private void OnDestroy()
+    {
+        EventSystem.OnPlayerLifeUpdated -= PlayerLifeUdated;
     }
 
     private void Update()
@@ -93,5 +98,15 @@ public class Obstacle_Controller : MonoBehaviour
     private Segment_Controller LastActiveSegment() // on return le dernier segment
     {
         return _instancedSegment[_instancedSegment.Count -1];
+    }
+
+    private void PlayerLifeUdated(int playerLifeCount)
+    {
+        if (playerLifeCount > 0)
+        {
+            return;
+        }
+
+        _translationSpeed = 0f;
     }
 }
