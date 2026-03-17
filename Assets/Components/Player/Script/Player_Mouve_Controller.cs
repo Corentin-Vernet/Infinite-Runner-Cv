@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 public class Player_Mouve_Controller : MonoBehaviour
 {
     [Header("Jump Parameters")]
-    [SerializeField, Tooltip("seconde")] private float _jumpDuration = 1f;
+    [SerializeField, Tooltip("seconde")] private float _jumpDuration = 2f;
     [SerializeField, Tooltip("metre")] private float _heightJump = 2f;
     [SerializeField] private AnimationCurve _jumpCurve;
     [SerializeField] private AnimationCurve _fallCurve;
