@@ -8,6 +8,8 @@ public class State_Machine
         currentState?.Exit();
         currentState = newState;
         currentState.Enter();
+
+        EventSystem.OnGameStateChange?.Invoke(currentState);
     }
 
     public void Update()

@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class Game_State : State
 {
+    public float _timer;
+
     public Game_State(State_Machine stateMachine) : base(stateMachine) { }
 
     public override void Enter()
@@ -11,7 +13,7 @@ public class Game_State : State
 
     public override void Update()
     {
-
+        _timer += Time.deltaTime;
     }
 
     public override void Exit()

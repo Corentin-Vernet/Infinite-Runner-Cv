@@ -4,7 +4,7 @@ public class State_Machine_Contoller : MonoBehaviour
 {
     private State_Machine _stateMachine;
 
-    private void Awake()
+    private void Start()
     {
         _stateMachine = new State_Machine();
         var initialState = new Countdown_State(_stateMachine);
